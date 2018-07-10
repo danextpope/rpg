@@ -9,8 +9,8 @@
     {
         public DirectionMapperProfile()
         {
-            CreateMap<Direction, Directions>();
-            CreateMap<Directions, Direction>();
+            CreateMap<Direction, Directions>().ProjectUsing(direction => Enum.Parse<Directions>(direction.ToString()));
+            CreateMap<Directions, Direction>().ProjectUsing(direction => Enum.Parse<Direction>(direction.ToString()));
         }
     }
 }
