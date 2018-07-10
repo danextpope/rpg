@@ -14,6 +14,7 @@
     [Flags]
     public enum Directions : ushort
     {
+        None = 0,
         North = 1 << ((int)Direction.North),
         East = 1 << ((int)Direction.East),
         Up = 1 << ((int)Direction.Up),

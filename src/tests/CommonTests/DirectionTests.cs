@@ -11,15 +11,11 @@
 
     public class DirectionTests : BaseTests
     {
-        private static readonly IEnumerable<object[]> oppositeDirection = GetDirection();
-
-        private static readonly IEnumerable<object[]> oppositeDirections = GetDirections();
-
         public static IEnumerable<object[]> DirectionValues => Enumerable.Range(0, 6).Select(n => new object[] { (Direction)n, (Directions)(1 << n) });
 
-        public static IEnumerable<object[]> OppositeDirection => oppositeDirection;
+        public static IEnumerable<object[]> OppositeDirection { get; } = GetDirection();
 
-        public static IEnumerable<object[]> OppositeDirections => oppositeDirections;
+        public static IEnumerable<object[]> OppositeDirections { get; } = GetDirections();
 
         [Theory]
         [MemberData(nameof(DirectionValues))]
@@ -48,12 +44,49 @@
 
         private static IEnumerable<object[]> GetDirections()
         {
-            yield return new object[] { Directions.East, Directions.West };
-            yield return new object[] { Directions.West, Directions.East };
-            yield return new object[] { Directions.North, Directions.South };
-            yield return new object[] { Directions.South, Directions.North };
-            yield return new object[] { Directions.Up, Directions.Down };
-            yield return new object[] { Directions.Down, Directions.Up };
+            var values = new[] { false, true };
+            foreach (var n in values)
+                foreach (var e in values)
+                    foreach (var s in values)
+                        foreach (var w in values)
+                            foreach (var u in values)
+                                foreach (var d in values)
+                                {
+                                    var expected = Directions.None;
+                                    var input = expected;
+                                    if (n)
+                                    {
+                                        expected |= Directions.North;
+                                        input |= Directions.South;
+                                    }
+                                    if (s)
+                                    {
+                                        expected |= Directions.South;
+                                        input |= Directions.North;
+                                    }
+                                    if (e)
+                                    {
+                                        expected |= Directions.East;
+                                        input |= Directions.West;
+                                    }
+                                    if (w)
+                                    {
+                                        expected |= Directions.West;
+                                        input |= Directions.East;
+                                    }
+                                    if (u)
+                                    {
+                                        expected |= Directions.Up;
+                                        input |= Directions.Down;
+                                    }
+                                    if (d)
+                                    {
+                                        expected |= Directions.Down;
+                                        input |= Directions.Up;
+                                    }
+
+                                    yield return new object[] { expected, input };
+                                }
         }
     }
 }
