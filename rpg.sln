@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{584201D1-B259-4B40-AF95-6B511AAFC6D3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{28CB60B9-68CB-482A-A543-1C05D06F1A88}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "common", "src\lib\common\common.csproj", "{7432D561-6AC6-4ADA-A0DA-8EED71332515}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "maze", "src\lib\maze\maze.csproj", "{2CDB7CAA-0C6C-4502-916D-54C673D7B135}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7432D561-6AC6-4ADA-A0DA-8EED71332515}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7432D561-6AC6-4ADA-A0DA-8EED71332515}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7432D561-6AC6-4ADA-A0DA-8EED71332515}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7432D561-6AC6-4ADA-A0DA-8EED71332515}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CDB7CAA-0C6C-4502-916D-54C673D7B135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CDB7CAA-0C6C-4502-916D-54C673D7B135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CDB7CAA-0C6C-4502-916D-54C673D7B135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CDB7CAA-0C6C-4502-916D-54C673D7B135}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7432D561-6AC6-4ADA-A0DA-8EED71332515} = {28CB60B9-68CB-482A-A543-1C05D06F1A88}
+		{2CDB7CAA-0C6C-4502-916D-54C673D7B135} = {28CB60B9-68CB-482A-A543-1C05D06F1A88}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E7641582-0C78-4021-99C7-B56161BC601D}
+	EndGlobalSection
+EndGlobal
