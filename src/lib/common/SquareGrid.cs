@@ -10,8 +10,9 @@
     /// <seealso cref="System.Collections.Generic.IEnumerable{T}"/>
     public class SquareGrid<T> : IGrid<T>, IEnumerable<T>
     {
-        private static readonly (int x, int y)[] offsets = new[] { (-1, 0), (0, -1), (1, 0), (0, 1) };
+        private static readonly (int, int)[] defaultOffsets = new[] { (-1, 0), (0, -1), (1, 0), (0, 1) };
         private readonly T[] data;
+        private readonly (int x, int y)[] offsets;
 
         /// <summary>Initializes a new instance of the <see cref="SquareGrid"/> class.</summary>
         /// <param name="width">The width.</param>
@@ -25,12 +26,15 @@
         /// <param name="bottom">The bottom.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        public SquareGrid(int left, int bottom, int width, int height)
+        public SquareGrid(int left, int bottom, int width, int height) : this(left, bottom, width, height, defaultOffsets) { }
+
+        public SquareGrid(int left, int bottom, int width, int height, (int, int)[] offsets)
         {
             Width = width;
             Height = height;
             Left = left;
             Bottom = bottom;
+            this.offsets = offsets;
             data = new T[width * height];
         }
 
