@@ -1,5 +1,6 @@
 ﻿namespace FourZoas.RPG.Common
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
@@ -35,6 +36,8 @@
             Left = left;
             Bottom = bottom;
             this.offsets = offsets;
+            if (width < 0) throw new ArgumentOutOfRangeException(nameof(width));
+            if (height < 0) throw new ArgumentOutOfRangeException(nameof(height));
             data = new T[width * height];
         }
 
@@ -69,8 +72,8 @@
         /// <returns>The value at the specified coordinate</returns>
         public T this[int x, int y]
         {
-            get => data[(x - Left) + Width * (y - Bottom)];
-            set => data[(x - Left) + Width * (y - Bottom)] = value;
+            get => x >= Left && x <= Right && y >= Bottom && y <= Top ? data[(x - Left) + Width * (y - Bottom)] : throw new IndexOutOfRangeException();
+            set => data[(x - Left) + Width * (y - Bottom)] = x >= Left && x <= Right && y >= Bottom && y <= Top ? value : throw new IndexOutOfRangeException();
         }
 
         /// <summary>Returns an enumerator that iterates through the collection.</summary>
