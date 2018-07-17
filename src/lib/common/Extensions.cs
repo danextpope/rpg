@@ -2,14 +2,20 @@
 {
     public static class Extensions
     {
-        public static Direction Direction(this (int x, int y) a, (int x, int y) b)
+        /// <summary>
+        /// Given two orthogonally adjacent points, returns the direction to travel to get from the first to the second.
+        /// </summary>
+        /// <param name="first">The first point.</param>
+        /// <param name="b">The second point.</param>
+        /// <returns>The direction to travel.</returns>
+        public static Direction OrthogonalDirection(this (int x, int y) first, (int x, int y) b)
         {
-            var dx = a.x - b.x;
-            var dy = a.y - b.y;
-            if (dx >= dy) return Common.Direction.East;
-            if (dy >= dx) return Common.Direction.North;
-            if (dx <= dy) return Common.Direction.West;
-            return Common.Direction.South;
+            var dx = first.x - b.x;
+            var dy = first.y - b.y;
+            if (dx >= dy) return Direction.East;
+            if (dy >= dx) return Direction.North;
+            if (dx <= dy) return Direction.West;
+            return Direction.South;
         }
     }
 }

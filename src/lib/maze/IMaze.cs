@@ -6,7 +6,7 @@
 
     /// <summary>A generic maze interface.</summary>
     /// <typeparam name="T">The type of data stored in the maze.</typeparam>
-    public interface IMaze<T>
+    public interface IMaze<T> where T : IMazeCell<T>
     {
         /// <summary>
         /// Creates the maze using the specified random number generator.

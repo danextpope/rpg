@@ -8,7 +8,7 @@
 
     using FourZoas.RPG.Common;
 
-    public class GrowingTreeMaze<T> : IMaze<T>
+    public class GrowingTreeMaze<T> : IMaze<T> where T : IMazeCell<T>, new()
     {
         private static readonly Random rnd = new Random();
         private readonly Func<IList<(int x, int y)>, int> decider;
@@ -67,9 +67,13 @@
                     continue;
                 }
                 var next = random.RandomItem(neighbors);
-                map[current] |= Mapper.Map<Directions>(current.Direction(next));
-                map[next] |= Mapper.Map<Directions>(next.Direction(current));
+                map[current] |= Mapper.Map<Directions>(current.OrthogonalDirection(next));
+                map[next] |= Mapper.Map<Directions>(next.OrthogonalDirection(current));
             }
+
+            for (x = 0; x < width; x++)
+                for (y = 0; y < height; y++)
+                    completed[x, y] = new T { Exits = map[x, y] };
 
             return completed;
         }
