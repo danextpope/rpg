@@ -1,5 +1,7 @@
-﻿namespace FourZoas.RPG.Common
+﻿
+namespace FourZoas.RPG.Common
 {
+    using System.Collections.Generic;
     /// <summary>A random number generator.</summary>
     public interface IRandom
     {
@@ -25,6 +27,14 @@
         /// <summary>Gets a random double value from <c>0</c> to <c>1</c>.</summary>
         /// <returns>A random double value from <c>0</c> to <c>1</c>.</returns>
         double GetDouble();
+
+        /// <summary>
+        /// Picks an item at random from an <see cref="IEnumerable{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">The type stored in the collection.</typeparam>
+        /// <param name="enumerable">The enumerable.</param>
+        /// <returns>A random element from the collection.</returns>
+        T RandomItem<T>(IEnumerable<T> enumerable);
 
         /// <summary>Resets this instance.</summary>
         void Reset();

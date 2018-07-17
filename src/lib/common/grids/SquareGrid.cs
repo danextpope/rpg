@@ -76,6 +76,16 @@
             set => data[(x - Left) + Width * (y - Bottom)] = x >= Left && x <= Right && y >= Bottom && y <= Top ? value : throw new IndexOutOfRangeException();
         }
 
+        /// <summary>Gets or sets the <see cref="T"/> with the specified cell.</summary>
+        /// <value>The <see cref="T"/>.</value>
+        /// <param name="cell">The cell.</param>
+        /// <returns>The value in the specified position.</returns>
+        public T this[(int x, int y) cell]
+        {
+            get => this[cell.x, cell.y];
+            set => this[cell.x, cell.y] = value;
+        }
+
         /// <summary>Returns an enumerator that iterates through the collection.</summary>
         /// <returns>An enumerator that can be used to iterate through the collection.</returns>
         public IEnumerator<T> GetEnumerator() => data.OfType<T>().GetEnumerator();

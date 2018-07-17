@@ -1,6 +1,8 @@
 ﻿namespace FourZoas.RPG.Common
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>A random number generator wrapper around <see cref="Random"/>.</summary>
     /// <seealso cref="IRandom"/>
@@ -49,6 +51,18 @@
         /// <summary>Gets a random double value from <c>0</c> to <c>1</c>.</summary>
         /// <returns>A random double value from <c>0</c> to <c>1</c>.</returns>
         public double GetDouble() => random.NextDouble();
+
+        /// <summary>Picks an item at random from an <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</summary>
+        /// <typeparam name="T">The type stored in the collection.</typeparam>
+        /// <param name="enumerable">The enumerable.</param>
+        /// <returns>A random element from the collection.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">enumerable - Collection is empty.</exception>
+        public T RandomItem<T>(IEnumerable<T> enumerable)
+        {
+            var n = enumerable?.Count() ?? 0;
+            if (n == 0) throw new ArgumentOutOfRangeException(nameof(enumerable), "Collection is empty.");
+            return enumerable.Skip(Get(n)).First();
+        }
 
         /// <summary>Resets this instance.</summary>
         public void Reset() => random = new Random(Seed);

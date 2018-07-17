@@ -36,6 +36,7 @@
         /// <param name="y">The y coordinate.</param>
         /// <returns>The value at the specified coordinates.</returns>
         T this[int x, int y] { get; set; }
+        T this[(int x, int y) cell] { get; set; }
 
         /// <summary>
         /// Gets all values that are adjacent to the specified cell.
