@@ -9,7 +9,7 @@
     /// <typeparam name="T"></typeparam>
     /// <seealso cref="Common.IGrid{T}"/>
     /// <seealso cref="System.Collections.Generic.IEnumerable{T}"/>
-    public class SquareGrid<T> : IGrid<T>, IEnumerable<T>
+    public class SquareGrid<T> : IGrid<T>, IEnumerable<T> where T : new()
     {
         private static readonly (int, int)[] defaultOffsets = new[] { (-1, 0), (0, -1), (1, 0), (0, 1) };
         private readonly T[] data;
@@ -38,7 +38,7 @@
             this.offsets = offsets;
             if (width < 0) throw new ArgumentOutOfRangeException(nameof(width));
             if (height < 0) throw new ArgumentOutOfRangeException(nameof(height));
-            data = new T[width * height];
+            data = Enumerable.Repeat(0, width * height).Select(x => new T()).ToArray();
         }
 
         /// <summary>Gets the minimum value allow for the <c>y</c> coordinate.</summary>

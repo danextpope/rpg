@@ -12,9 +12,12 @@
         {
             var dx = first.x - b.x;
             var dy = first.y - b.y;
-            if (dx >= dy) return Direction.East;
-            if (dy >= dx) return Direction.North;
-            if (dx <= dy) return Direction.West;
+            if (dx != 0)
+            {
+                if (dx > 0) return Direction.West;
+                return Direction.East;
+            }
+            if (dy < 0) return Direction.North;
             return Direction.South;
         }
     }

@@ -4,7 +4,7 @@
 
     /// <summary>An offset hex grid forming a parallelogram.</summary>
     /// <typeparam name="T"></typeparam>
-    public class HexGrid<T> : SquareGrid<T>, IGrid<T>, IEnumerable<T>
+    public class HexGrid<T> : SquareGrid<T>, IGrid<T>, IEnumerable<T> where T : new()
     {
         private static readonly (int, int)[] defaultOffsets = new[] { (0, 1), (1, 0), (1, -1), (0, -1), (-1, 0), (-1, 1) };
 

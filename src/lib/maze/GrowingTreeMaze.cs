@@ -8,20 +8,43 @@
 
     using FourZoas.RPG.Common;
 
+    /// <summary>Basic class to hold some basic decider methods for <see cref="GrowingTreeMaze{T}"/>.</summary>
+    public static class GrowingTreeMazeConstants
+    {
+        /// <summary>Pick the next cell from the five most recent.</summary>
+        public static readonly Func<IList<(int x, int y)>, int> Newer = l => LastN(l, 5);
+
+        /// <summary>Always pick the most recently added cell.</summary>
+        public static readonly Func<IList<(int x, int y)>, int> Newest = l => l.Count - 1;
+
+        /// <summary>Pick the next cell from the five oldest cells.</summary>
+        public static readonly Func<IList<(int x, int y)>, int> Older = l => FirstN(l, 5);
+
+        /// <summary>Always pick the oldest cell.</summary>
+        public static readonly Func<IList<(int x, int y)>, int> Oldest = l => 0;
+
+        private static readonly Random rnd = new Random();
+
+        private static int FirstN(IList<(int x, int y)> list, int n)
+        {
+            if (n > list.Count) n = list.Count;
+            if (list.Count == 0) return -1;
+            return rnd.Next(n);
+        }
+
+        private static int LastN(IList<(int x, int y)> list, int n)
+        {
+            if (n > list.Count) n = list.Count;
+            if (list.Count == 0) return -1;
+            return list.Count - 1 - rnd.Next(n);
+        }
+    }
+
     public class GrowingTreeMaze<T> : IMaze<T> where T : IMazeCell<T>, new()
     {
-        private static readonly Random rnd = new Random();
         private readonly Func<IList<(int x, int y)>, int> decider;
 
         public GrowingTreeMaze(Func<IList<(int x, int y)>, int> decider) => this.decider = decider;
-
-        public static Func<IList<(int x, int y)>, int> Newer { get; } = l => LastN(l, 5);
-
-        public static Func<IList<(int x, int y)>, int> Newest { get; } = l => l.Count - 1;
-
-        public static Func<IList<(int x, int y)>, int> Older { get; } = l => FirstN(l, 5);
-
-        public static Func<IList<(int x, int y)>, int> Oldest { get; } = l => 0;
 
         /// <summary>Creates the maze using the specified random number generator.</summary>
         /// <param name="random">The random number generator.</param>
@@ -54,7 +77,7 @@
 
             var x = random.Get(width);
             var y = random.Get(height);
-            var current = (x: x, y: y);
+            var current = (x, y);
             list.Add(current);
             while (list.Count > 0)
             {
@@ -69,6 +92,7 @@
                 var next = random.RandomItem(neighbors);
                 map[current] |= Mapper.Map<Directions>(current.OrthogonalDirection(next));
                 map[next] |= Mapper.Map<Directions>(next.OrthogonalDirection(current));
+                list.Add(next);
             }
 
             for (x = 0; x < width; x++)
@@ -76,20 +100,6 @@
                     completed[x, y] = new T { Exits = map[x, y] };
 
             return completed;
-        }
-
-        private static int FirstN(IList<(int x, int y)> list, int n)
-        {
-            if (n > list.Count) n = list.Count;
-            if (list.Count == 0) return -1;
-            return rnd.Next(n);
-        }
-
-        private static int LastN(IList<(int x, int y)> list, int n)
-        {
-            if (n > list.Count) n = list.Count;
-            if (list.Count == 0) return -1;
-            return list.Count - 1 - rnd.Next(n);
         }
     }
 }
