@@ -28,9 +28,9 @@
             {
                 for (var xp = maze.Left; xp < maze.Right; xp++)
                 {
-                    if (xp == maze.Left) sb.Append("┌─");
-                    else if (maze[xp, yp].Exits.HasFlag(Directions.West)) sb.Append("──");
-                    else sb.Append("┬─");
+                    if (xp == maze.Left) sb.Append("┌──");
+                    else if (maze[xp, yp].Exits.HasFlag(Directions.West)) sb.Append("───");
+                    else sb.Append("┬──");
                 }
                 sb.AppendLine("┐");
             }
@@ -40,8 +40,8 @@
                 {
                     if (xp == maze.Left)
                     {
-                        if (maze[xp, yp].Exits.HasFlag(Directions.North)) sb.Append("│ ");
-                        else sb.Append("├─");
+                        if (maze[xp, yp].Exits.HasFlag(Directions.North)) sb.Append("│  ");
+                        else sb.Append("├──");
                     }
                     else
                     {
@@ -51,26 +51,26 @@
                             {
                                 if (maze[xp, yp+1].Exits.HasFlag(Directions.West))
                                 {
-                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("  ");
-                                    else sb.Append("╴ ");
+                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("   ");
+                                    else sb.Append("╴  ");
                                 }
                                 else
                                 {
-                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("╵ ");
-                                    else sb.Append("┘ ");
+                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("╵  ");
+                                    else sb.Append("┘  ");
                                 }
                             }
                             else
                             {
                                 if (maze[xp, yp+1].Exits.HasFlag(Directions.West))
                                 {
-                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("╶─");
-                                    else sb.Append("──");
+                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("╶──");
+                                    else sb.Append("───");
                                 }
                                 else
                                 {
-                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("└─");
-                                    else sb.Append("┴─");
+                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("└──");
+                                    else sb.Append("┴──");
                                 }
                             }
                         }
@@ -80,26 +80,26 @@
                             {
                                 if (maze[xp, yp+1].Exits.HasFlag(Directions.West))
                                 {
-                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("╷ ");
-                                    else sb.Append("┐ ");
+                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("╷  ");
+                                    else sb.Append("┐  ");
                                 }
                                 else
                                 {
-                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("│ ");
-                                    else sb.Append("┤ ");
+                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("│  ");
+                                    else sb.Append("┤  ");
                                 }
                             }
                             else
                             {
                                 if (maze[xp, yp+1].Exits.HasFlag(Directions.West))
                                 {
-                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("┌─");
-                                    else sb.Append("┬─");
+                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("┌──");
+                                    else sb.Append("┬──");
                                 }
                                 else
                                 {
-                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("├─");
-                                    else sb.Append("┼─");
+                                    if (maze[xp - 1, yp].Exits.HasFlag(Directions.North)) sb.Append("├──");
+                                    else sb.Append("┼──");
                                 }
                             }
                         }
@@ -110,12 +110,12 @@
             }
             return sb.ToString();
         }
-        private static string GetSecondLine<T>(IGrid<T> maze, int yp) where T : IMazeCell<T> => Enumerable.Range(maze.Left, maze.Width).Select(xp => maze[xp, yp].Exits.HasFlag(Directions.West) ? "  " : "│ ").Concat(new[] { "│","\n" }).Aggregate((a, x) => a + x);
+        private static string GetSecondLine<T>(IGrid<T> maze, int yp) where T : IMazeCell<T> => Enumerable.Range(maze.Left, maze.Width).Select(xp => maze[xp, yp].Exits.HasFlag(Directions.West) ? "   " : "│  ").Concat(new[] { "│","\n" }).Aggregate((a, x) => a + x);
         private static string GetLastLine<T>(IGrid<T> maze) where T : IMazeCell<T>
         {
-            var lc = "└─";
-            var cw = "┴─";
-            var cc = "──";
+            var lc = "└──";
+            var cw = "┴──";
+            var cc = "───";
             var rc = "┘";
             var sb = new StringBuilder();
             for (var xp = maze.Left; xp < maze.Right; xp++)

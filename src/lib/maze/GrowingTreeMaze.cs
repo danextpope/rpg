@@ -67,16 +67,23 @@
         /// have a high "river" factor but a short direct solution. If you randomly pick among the
         /// most recent cells, the Maze will have a low "river" factor but a long windy solution.
         /// </remarks>
-        public IGrid<T> Create(IRandom random, int width, int height)
+        public IGrid<T> Create(IRandom random, int width, int height) => Create(random, width, height, new SquareGrid<Directions>(width, height));
+        public IGrid<T> Create(IRandom random, int width, int height, IGrid<Directions> map)
         {
+            if (map.Width != width) throw new ArgumentOutOfRangeException(nameof(width), "Passed in IGrid is a different size than requested.");
+            if (map.Height!=height)throw new ArgumentOutOfRangeException(nameof(height), "Passed in IGrid is a different size than requested.");
+
             random.Reset();
 
             var completed = new SquareGrid<T>(width, height);
             var list = new List<(int x, int y)>();
-            var map = new SquareGrid<Directions>(width, height);
+            int x, y;
 
-            var x = random.Get(width);
-            var y = random.Get(height);
+            do
+            {
+                x = random.Get(width);
+                y = random.Get(height);
+            } while (map[x, y] != Directions.None);
             var current = (x, y);
             list.Add(current);
             while (list.Count > 0)
