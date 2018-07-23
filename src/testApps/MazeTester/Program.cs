@@ -1,6 +1,7 @@
 ﻿namespace MazeTester
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
 
@@ -17,6 +18,8 @@
             var rnd = new Random();
             var maze = new GrowingTreeMaze<EmptyCell>(l => l.Count > 1 ? l.Count - 2 : 0);
             var map = new SquareGrid<Directions>(20, 20);
+            var roomList = new Dictionary<int, IList<(int x, int y)>>();
+            var room = 1;
 
             var a = 0;
             while (a < 80)
@@ -36,6 +39,7 @@
                         }
                     }
                 if (!done) continue;
+                var list = roomList[room++] = new List<(int x, int y)>();
                 for (var i = 0; i < w; i++)
                     for (var j = 0; j < h; j++)
                     {
@@ -45,6 +49,7 @@
                         if (i < w - 1) d |= Directions.East;
                         if (j < h - 1) d |= Directions.North;
                         map[x + i, y + j] = d;
+                        list.Add((x + i, y + j));
                     }
                 a += w * h;
             }
